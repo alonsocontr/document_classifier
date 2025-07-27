@@ -15,12 +15,12 @@ from app.ml.classifier import load_model_and_vectorizer, predict_category
 app = FastAPI()
 
 # Mount static files (e.g., CSS, JS)
-app.mount("/static", StaticFiles(directory="frontend/static"), name="static")
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
 
 # Serve the index.html at root
 @app.get("/", response_class=FileResponse)
 def read_index():
-    return FileResponse("static/index.html")
+    return FileResponse("frontend/index.html")
 
 # CORS config
 app.add_middleware(

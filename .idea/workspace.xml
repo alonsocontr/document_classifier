@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1a43804a-8e20-4c82-8440-30547b3e0578" name="Changes" comment="frontend syncs to fastapi backend">
+    <list default="true" id="1a43804a-8e20-4c82-8440-30547b3e0578" name="Changes" comment="mount frontend">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
     </list>
@@ -108,7 +108,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753644959064</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="mount frontend">
+      <option name="closed" value="true" />
+      <created>1753645350656</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1753645350656</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -116,6 +124,7 @@
     <MESSAGE value="added database url" />
     <MESSAGE value="mounted frontend to fastapi app" />
     <MESSAGE value="frontend syncs to fastapi backend" />
-    <option name="LAST_COMMIT_MESSAGE" value="frontend syncs to fastapi backend" />
+    <MESSAGE value="mount frontend" />
+    <option name="LAST_COMMIT_MESSAGE" value="mount frontend" />
   </component>
 </project>
