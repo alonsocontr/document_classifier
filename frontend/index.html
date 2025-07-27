@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document Classifier</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      text-align: center;
+    }
+    h1 {
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      margin-top: 0;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+      color: #666;
+      font-weight: normal;
+    }
+    form {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    input[type="file"] {
+      margin-bottom: 1rem;
+    }
+    button {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      background-color: #4f46e5;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background-color 0.2s ease-in-out;
+    }
+    button:hover {
+      background-color: #4338ca;
+    }
+    #result {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+    #result.visible {
+      opacity: 1;
+    }
+    .confidence-label {
+      font-weight: bold;
+    }
+    .dark-green { color: #006400; }
+    .green { color: #008000; }
+    .light-green { color: #90ee90; }
+    .dark-yellow { color: #b8860b; }
+    .yellow { color: #ffd700; }
+    .red { color: #ff0000; }
+    .disclaimer {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    #history {
+      margin-top: 3rem;
+      text-align: left;
+    }
+    #history h2 {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    #entries {
+      max-height: 300px;
+      overflow-y: auto;
+      padding-right: 5px;
+    }
+    .entry {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      padding: 1rem;
+      margin-bottom: 0.8rem;
+    }
+    .entry span { display: block; }
+  </style>
+</head>
+<body>
+  <h1>Document Classifier</h1>
+  <div class="subtitle">Supported documents: Receipt, Invoice, Contract</div>
+  <form id="uploadForm">
+    <input type="file" name="file" id="fileInput" required />
+    <br />
+    <button type="submit">Upload & Classify</button>
+  </form>
+  <div id="result"></div>
+  <div class="disclaimer">
+    Disclaimer: Personal details such as filename and file content are not saved. The content of any uploaded file is temporarily stored for the purpose of classification, then immediately deleted. Only classification results such as document type, confidence score, and time are stored and publicly visible.
+  </div>
+
+  <div id="history">
+    <h2>Recent Classifications</h2>
+    <div id="entries"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('uploadForm');
+    const resultDiv = document.getElementById('result');
+    const entriesDiv = document.getElementById('entries');
+
+    function confidenceLabel(score) {
+      if (score >= 0.9) return { text: "Very confident", color: "dark-green" };
+      if (score >= 0.8) return { text: "Confident", color: "green" };
+      if (score >= 0.7) return { text: "Likely", color: "light-green" };
+      if (score >= 0.6) return { text: "Maybe", color: "dark-yellow" };
+      if (score >= 0.5) return { text: "Passable", color: "yellow" };
+      return { text: "Not sure", color: "red" };
+    }
+
+    async function fetchHistory() {
+      try {
+        const res = await fetch('http://127.0.0.1:8000/documents/');
+        const data = await res.json();
+
+        entriesDiv.innerHTML = '';
+        data.forEach(doc => {
+          const confidence = (doc.confidence * 100).toFixed(2);
+          const { text, color } = confidenceLabel(doc.confidence);
+
+          const div = document.createElement('div');
+          div.className = 'entry';
+          div.innerHTML = `
+            <span><strong>ID:</strong> ${doc.id}</span>
+            <span><strong>Type:</strong> ${doc.category}</span>
+            <span><strong>Confidence:</strong> ${confidence}%</span>
+            <span class="confidence-label ${color}">${text}</span>
+            <span><strong>Time:</strong> ${new Date(doc.created_at).toLocaleString()}</span>
+          `;
+          entriesDiv.appendChild(div);
+        });
+      } catch (err) {
+        entriesDiv.innerHTML = '<p style="color:red">Failed to load history.</p>';
+      }
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const file = document.getElementById('fileInput').files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      resultDiv.textContent = 'Classifying...';
+      resultDiv.classList.remove('visible');
+
+      try {
+        const res = await fetch('http://127.0.0.1:8000/upload/', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!res.ok) throw new Error('Upload failed.');
+
+        const data = await res.json();
+        const confPercent = (data.confidence * 100).toFixed(2);
+        const { text, color } = confidenceLabel(data.confidence);
+
+        resultDiv.innerHTML = `
+          <strong>Result:</strong> ${data.category}<br>
+          <strong>Confidence:</strong> ${confPercent}%<br>
+          <span class="confidence-label ${color}">${text}</span>
+        `;
+        resultDiv.classList.add('visible');
+        fetchHistory();
+      } catch (err) {
+        resultDiv.textContent = 'Error: ' + err.message;
+        resultDiv.classList.add('visible');
+      }
+    });
+
+    window.onload = fetchHistory;
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: document-classifier
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: POSTGRES_USER
+        value: your_user
+      - key: POSTGRES_PASSWORD
+        value: your_password
+      - key: POSTGRES_DB
+        value: document_classifier
+      - key: POSTGRES_HOST
+        value: your-db-host
+      - key: POSTGRES_PORT
+        value: 5432

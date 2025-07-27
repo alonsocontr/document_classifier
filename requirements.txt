@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+python-multipart
+pytesseract
+pillow
+joblib
+scikit-learn
+pdf2image
+python-dotenv
+psycopg2-binary
