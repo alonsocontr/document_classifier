@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1a43804a-8e20-4c82-8440-30547b3e0578" name="Changes" comment="updated .env">
+    <list default="true" id="1a43804a-8e20-4c82-8440-30547b3e0578" name="Changes" comment="updated SQL login redundancies">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/database.py" afterDir="false" />
     </list>
@@ -188,7 +188,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753656184339</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="updated SQL login redundancies">
+      <option name="closed" value="true" />
+      <created>1753656332921</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1753656332921</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -198,6 +206,7 @@
     <MESSAGE value="frontend syncs to fastapi backend" />
     <MESSAGE value="mount frontend" />
     <MESSAGE value="updated .env" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated .env" />
+    <MESSAGE value="updated SQL login redundancies" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated SQL login redundancies" />
   </component>
 </project>
