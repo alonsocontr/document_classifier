@@ -17,7 +17,7 @@ POSTGRES_HOST = os.getenv("POSTGRES_HOST", "localhost")
 POSTGRES_PORT = os.getenv("POSTGRES_PORT", "5432")
 
 # Connect to database using login details
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
+SQLALCHEMY_DATABASE_URL = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 # Create engine
