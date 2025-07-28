@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1a43804a-8e20-4c82-8440-30547b3e0578" name="Changes" comment="fixed SQL details for production">
+    <list default="true" id="1a43804a-8e20-4c82-8440-30547b3e0578" name="Changes" comment="updated .env (sticking to railway)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,7 +220,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753657045466</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="updated .env (sticking to railway)">
+      <option name="closed" value="true" />
+      <created>1753657425405</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1753657425405</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -232,6 +241,7 @@
     <MESSAGE value="updated SQL login redundancies" />
     <MESSAGE value="updated environmental variable handling" />
     <MESSAGE value="fixed SQL details for production" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed SQL details for production" />
+    <MESSAGE value="updated .env (sticking to railway)" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated .env (sticking to railway)" />
   </component>
 </project>
